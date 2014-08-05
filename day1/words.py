@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #file = open('words.txt')
 
 #for line in file:
@@ -20,3 +21,10 @@ def uses_all(word1, word2):
 def is_abecedarian(word):
     return ''.join(sorted(word))==word
     
+=======
+file = open('words.txt')
+
+for line in file:
+  word = line.strip()
+  print word
+>>>>>>> 800df7bcaa57e0935c0836f1f49de6407c55c212

@@ -18,4 +18,7 @@ class TestWordsCode(unittest.TestCase):
   def test_is_abecedarian(self):
     self.assertEqual(words.is_abecedarian("abcxyz"), True)
     self.assertEqual(words.is_abecedarian("abczyx"), False)
+<<<<<<< HEAD
    
+=======
+>>>>>>> 800df7bcaa57e0935c0836f1f49de6407c55c212
