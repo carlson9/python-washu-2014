@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 #file = open('words.txt')
 
 #for line in file:
@@ -22,9 +23,15 @@ def is_abecedarian(word):
     return ''.join(sorted(word))==word
     
 =======
+=======
+>>>>>>> upstream/master
 file = open('words.txt')
 
 for line in file:
   word = line.strip()
+<<<<<<< HEAD
   print word
 >>>>>>> 800df7bcaa57e0935c0836f1f49de6407c55c212
+=======
+  print word
+>>>>>>> upstream/master

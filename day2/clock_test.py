@@ -1,5 +1,9 @@
 import unittest
+<<<<<<< HEAD
 from clock import *
+=======
+from clock import Clock
+>>>>>>> upstream/master
 
 class ClockTest(unittest.TestCase):
 
