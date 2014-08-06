@@ -42,7 +42,7 @@ def reversewords(txt):
     if len(sentence) > 0:
       new_text += sentence
       new_text += " "
-  new_text = new_text[:-1]
+  new_text -= " "
       
     
   return new_text
