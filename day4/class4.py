@@ -1,0 +1,39 @@
+def linear_search(mylist, element):
+    steps = 0
+    for item in mylist:
+        steps+=1
+        if item == element:
+            print steps
+            return item
+    print steps
+    return None
+
+def binary_search(sorted_list, element):
+    middle = len(sorted_list)/2
+    median = sorted_list[middle]
+    if len(sorted_list) == 1:
+        if element == median: return median
+        return None
+    if element < median:
+        return binary_search(sorted_list[:middle], element)
+    else:
+        return binary_search(sorted_list[middle:], element)
+
+
+mylist = [4, 'a', 'b', 1, 'A', '/']
+
+linear_search(mylist, 4)
+linear_search(mylist, 'A')
+linear_search(mylist, '/')
+linear_search(mylist, 'q')
+
+sorted_list = sorted(mylist)
+binary_search(sorted_list, 4)
+binary_search(sorted_list, 'A')
+binary_search(sorted_list, '/')
+binary_search(sorted_list, 'q')
+
+
+
+
+
