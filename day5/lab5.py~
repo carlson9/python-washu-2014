@@ -146,8 +146,6 @@ def findAllPaths(graph, start, end, path=[]):
         newpath = filter(None, newpath)
         if newpath: return newpath
         return None
-allPaths = findAllPaths(movies, jr, ms)
-for path in allPaths:
-   print path
-
-
+# allPaths = findAllPaths(movies, jr, ms)
+# for path in allPaths:
+#   print path
