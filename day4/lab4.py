@@ -22,4 +22,4 @@ def hanoi(n=3, first=([3,2,1],"first"), second=([], "second"), third=([], "third
             print "move " + str(disk) + " from " + first[1] + " to " + third[1]
             third[0].append(disk)
         hanoi(n - 1, second, first, third)
-        
+

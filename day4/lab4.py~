@@ -14,7 +14,7 @@ def prime(number=121,list_of_primes=range(2,122),iters=0):
     if count == done: return list_of_primes
     return prime(number,list_of_primes,iters+1)
 
-def hanoi(n, first, second, third):
+def hanoi(n=3, first=([3,2,1],"first"), second=([], "second"), third=([], "third")):
     if n > 0:
         hanoi(n - 1, first, third, second)
         if first[0]:
@@ -23,9 +23,3 @@ def hanoi(n, first, second, third):
             third[0].append(disk)
         hanoi(n - 1, second, first, third)
         
-first = ([4,3,2,1], "first")
-second = ([], "second")
-third = ([], "third")
-hanoi(4,first,second,third)
-
-print first, second, third
