@@ -1,6 +1,6 @@
 def merge_sort(m):
     if len(m)<=1: return m
-    left = m[:len(m)/2] #split the array
+    left = m[:len(m)/2]
     right = m[len(m)/2:]
     left = merge_sort(left)
     right = merge_sort(right)
@@ -10,17 +10,17 @@ def merge(left, right):
     i = 0
     j = 0
     merged = []
-    while i<len(left) and j<len(right): #while haven't reached end of one side
-        if left[i] < right[j]: #if left is smaller append it
+    while i<len(left) and j<len(right):
+        if left[i] < right[j]:
             merged.append(left[i])
             i+=1
         else:
             merged.append(right[j])
             j+=1
-    if i == len(left): #this means that the end of the left was reached, so just append the rest of the right
+    if i == len(left):
         for x in range(j,len(right)):
             merged.append(right[x])
-    if j == len(right): #end of right was reached
+    if j == len(right):
         for y in range(i,len(left)):
             merged.append(left[y])
     return merged
@@ -28,8 +28,8 @@ def merge(left, right):
 def item_sort(m):
     output = []
     for i in range(len(m)):
-        output.append(min(m)) #append the minimum
-        m.remove(min(m)) #and remove it
+        output.append(min(m))
+        m.remove(min(m))
     return output
 
 def quicksort(myList, start, end): #borrowed from www.pythonschool.net/algorithms_quickSort/
