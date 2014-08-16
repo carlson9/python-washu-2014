@@ -20,7 +20,7 @@ def merge(left, right):
     if i == len(left):
         for x in range(j,len(right)):
             merged.append(right[x])
-    elif j == len(right):
+    if j == len(right):
         for y in range(i,len(left)):
             merged.append(left[y])
     return merged

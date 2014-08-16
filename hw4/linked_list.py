@@ -1,7 +1,12 @@
 class Node:
     def __init__(self, _value=None, _next=None):
-        self.value = int(_value)
-        self.next = _next
+        if isinstance(_value, int):
+            self.value = _value
+            self.next = _next
+        else:
+            print 'Needs integer input. Redefine.'
+            self.value = None
+            self.next = None
     def __str__(self):
         return str(self.value)
 
@@ -16,7 +21,7 @@ class LinkedList:
         while hold is not None: #loop until pointer is none
             if hold in holder: #if it cycles, break count
                 print 'List is cyclical: length is length until fold.'
-                return count + 1
+                return count
             holder.append(hold) #couldn't figure out how to do this without a list - without cycles don't need the list
             hold = hold.next #move down one
             count+=1
@@ -24,7 +29,7 @@ class LinkedList:
 
     def addNode(self, new_value):
         node = Node(new_value) #create node and send it to addNodeAsNode function
-        self.addNodeAsNode(node)
+        if node.value is not None: self.addNodeAsNode(node)
 
     def addNodeAsNode(self, node): #need this to create cycles and helps the reversal function
         if self.hasCycle(): #could have done this within the function again to decrease complexity, but it also increases code length
@@ -36,10 +41,12 @@ class LinkedList:
 
     def addNodeAfter(self, new_value, after_node):
         hold = self.head
+        holder = []
         while hold is not after_node: #loop until pointing at after node
-            if hold is None: #got to end
+            if hold is None or hold in holder: #got to end or cycle
                 print 'There was no node matching argument.'
                 return None
+            holder.append(hold)
             hold = hold.next #O(n) complexity
         hold.next = Node(new_value, hold.next) #insert it by pointing before node to new node and new node points to after node
 
@@ -51,18 +58,21 @@ class LinkedList:
     def addNodeBeforeAsNode(self, node, before_node): #helps with reversal function
         node.next=before_node #point to before node
         hold = self.head
+        holder = []
         if hold is before_node: #if before node is first node, make head new node
             self.head = node
         else:
-            while hold.next is not before_node: #loop until reach penultimate node - O(n) complexity
-                if hold.next is None: #if reached end
+            while hold.next is not before_node: #loop until reach penultimate node or cycle- O(n) complexity
+                if hold.next is None or hold.next in holder: #if reached end
                     print 'There is no node matching argument.'
                     return None
+                holder.append(hold)
                 hold = hold.next
             hold.next = node
 
     def removeNode(self, node_to_remove):
         hold = self.head
+        holder = []
         if hold is None:
             print 'This is an empty list with no nodes to remove.'
             return None
@@ -70,21 +80,27 @@ class LinkedList:
             self.head = hold.next
             return None
         while hold.next is not node_to_remove: #loop until find node - O(n) complexity
-            if hold.next is None: #if reached end
+            if hold.next is None or hold.next in holder: #if reached end
                 print 'There is no node matching argument.'
                 return None
+            holder.append(hold)
             hold = hold.next
-        hold.next = hold.next.next #simply point before node to after node
+        if hold.next.next in holder: #if removed node points back in cycle
+            hold.next = None
+        else: hold.next = hold.next.next #simply point before node to after node
 
     def removeNodesByValue(self, value):
         hold = self.head
+        holder = []
         if hold.value == value:
             self.removeNode(hold) #remove head node if equals value - easier to remove head if value than to try to include head in loop
             if self.head is not None: return self.removeNodesByValue(value) #if not at end, recursively call function with new head
             else: return None
-        while hold.next is not None: #could use length function but would add complexity
+        while hold.next is not None and hold.next not in holder: #could use length function but would add complexity
             if hold.next.value == value:
-                hold.next = hold.next.next
+                if hold.next.next in holder: hold.next = None #if node to remove points back to node in cycle point to None
+                else: hold.next = hold.next.next
+            holder.append(hold)
             hold = hold.next
             if hold is None: break #if removed last node need to break the loop or the hold.next in the while check would error
 
