@@ -1,6 +1,0 @@
-def item_sort(m):
-    output = []
-    for i in range(len(m)):
-        output.append(min(m))
-        m.remove(min(m))
-
