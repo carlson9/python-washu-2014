@@ -1,5 +1,5 @@
 import time
-matt = api.get_user('mcdickenson')
+from datetime import timedelta
 followers = api.followers_ids('mcdickenson')
 followers_count = 0
 i=0
@@ -11,7 +11,14 @@ while i<len(followers):
             most_followed = str(user.name)
         i+=1
     except: time.sleep(.25)
-#Stratos Safioleas 49058
+#Virgin America 554395
+followed = api.friends_ids('mcdickenson')
+i = 0
+while i<len(followed):
+    try:
+        user = api.get_user(followed[i])
+        timedelta
+
 
 
 
