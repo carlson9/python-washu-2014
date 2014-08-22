@@ -166,15 +166,6 @@ for town in session.query(Town).filter(Town.population>100000):
 for connection in session.query(Town, Distance).filter(Town.population < 80000).filter(or_(Distance.towndepart == Town.name, Distance.townarrive == Town.name)):
     print connection.Distance
 
-#using SQL commands
-
-stmt = '''
-SELECT id, towndepart, townarrive FROM distances
-WHERE EXISTS (SELECT * FROM towns WHERE population<80000
-AND (towndepart = name OR townarrive = name))
-'''
-result=engine.execute(stmt)
-for row in result: print row
 
 # 3. Display the number of inhabitants per department (bonus: do it per region as well). 
 for department in session.query(Department):

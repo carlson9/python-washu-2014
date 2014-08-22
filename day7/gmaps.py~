@@ -1,6 +1,6 @@
 # pip install googlemaps
 from googlemaps import GoogleMaps 
-api_key = 'AIzaSyA5nMPOn0fpv824YiL2sab5-NZejD9lXvA'
+api_key = 'your api key from developers.google.com'
 gmaps = GoogleMaps(api_key)
 whitehouse = '1600 Pennsylvania Avenue, Washington, DC'
 lat, lng = gmaps.address_to_latlng(whitehouse)
