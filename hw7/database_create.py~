@@ -127,12 +127,12 @@ people = api.followers_ids('Atticushack')+api.friends_ids('Atticushack') # Extra
 people = list(set(people)) #extract unique user ids
 userlist = []
 i=0
-while i<len(people): # Code below loops through all users who follow Matt, and continues to update who stored as the "most_followed" as loop runs.
+while i<len(people): # Code below loops through all users who follow and are followed by Henry
     try:
-        user = api.get_user(followers[i])
-        user[i] = Users(str(user.name), user.followers_count, user.statuses_count)
+        user = api.get_user(people[i])
+        userlist.append(Users(str(user.name), user.followers_count, user.statuses_count))
         i+=1
-    except: time.sleep(.25) # Makes request every 0.25 seconds. Should we hit the limit, waits 0.25 before making another request. Permits for loop to remain active until limit is reset.
+    except: time.sleep(.25) # Should we hit the limit, waits 0.25 seconds before making another request. Permits for loop to remain active until limit is reset.
 
 
 session.add_all(userlist) #add users
