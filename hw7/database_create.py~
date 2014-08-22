@@ -17,18 +17,24 @@ class Blog(Base):
     id = Column(Integer, primary_key=True)
     url = Column(String)
     is_post = Column(Integer)
-    publish_date = Column(String, nullable = True)
-    author = Column(String, nullable = True)
-    post_title = Column(String, nullable = True)
-    comment_count = Column(Integer, nullable = True)
+    publish_date = Column(String)
+    author = Column(String)
+    post_title = Column(String)
+    comment_count = Column(Integer)
     source_id = Column(Integer, ForeignKey('sources.id'))
     def __init__(self, url, is_post, publish_date, author, post_title, comment_count):
         self.url = url
-        self.is_post = is_post
-        self.publish_date = publish_date
-        self.author = author
-        self.post_title = post_title
-        self.comment_count = comment_count
+        self.is_post = int(is_post)
+        if isinstance(publish_date, float): #means NaN and not a post
+            self.publish_date = 'Not a post'
+            self.author = 'Not a post'
+            self.post_title = 'Not a post'
+            self.comment_count = 0
+        else:
+            self.publish_date = str(publish_date)
+            self.author = str(author)
+            self.post_title = unicode(str(post_title),encoding='utf-8')
+            self.comment_count = int(comment_count)
     def __repr__(self):
         if self.is_post == 0: return 'Not a post. URL: %s' %self.url
         else:
@@ -60,6 +66,8 @@ blogs=[]
 for i in range(data.count()[0]):
     blogs.append(Blog(data.loc[i, 'url'], data.loc[i, 'is_post'], data.loc[i, 'publish_date'], data.loc[i, 'author'], data.loc[i, 'post_title'], data.loc[i, 'comment_count']))
     patty.blogs.append(blogs[i])
-    session.add(blogs[i])
+
+
+session.add_all(blogs)
 
 session.commit()
