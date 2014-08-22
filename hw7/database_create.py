@@ -4,16 +4,14 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, and_, or_
 from sqlalchemy.orm import relationship, backref, sessionmaker
 from sqlalchemy import *
-from sqlalchemy.engine import Engine
+
 
 data = pd.read_csv("https://raw.githubusercontent.com/carlson9/python-washu-2014/master/hw5/mathofpolitics.csv")
 
 engine = sqlalchemy.create_engine('sqlite:////home/david/python-washu-2014/hw7/scrape_database.db', echo=False)
 
 Base = declarative_base() 
-Base.metadata.create_all(engine) 
-Session = sessionmaker(bind=engine)
-session = Session()
+
 class Blog(Base):
     __tablename__ = 'blog_post'
     id = Column(Integer, primary_key=True)
@@ -51,12 +49,19 @@ class Source(Base):
       
   
 
+Base.metadata.create_all(engine) 
+Session = sessionmaker(bind=engine)
+session = Session()
+
+
 patty = Source('The Math of Politics', 'http://www.mathofpolitics.com/')
 session.add(patty)
 blogs=[]
 for i in range(data.count()[0]):
     blogs.append(Blog(data.loc[i, 'url'], data.loc[i, 'is_post'], data.loc[i, 'publish_date'], data.loc[i, 'author'], data.loc[i, 'post_title'], data.loc[i, 'comment_count']))
     patty.blogs.append(blogs[i])
-    session.add(blogs[i])
+
+
+session.add_all(blogs)
 
 session.commit()
